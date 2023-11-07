@@ -19,7 +19,7 @@ const UserSchema=Joi.object({
 
 export async function POST(req){
     connectToDB()
-    const {name,email,password,converstation,imgUrl,isOnline}=await req.json()
+    const {name,email,password,converstation,imgUrl,isOnline,group}=await req.json()
     const {error}=UserSchema.validate({name,email,password,imgUrl})
 
     if(error){
@@ -41,7 +41,7 @@ export async function POST(req){
          const hashPassword=await hash(password,12)
          console.log(hashPassword)
           const createusser=await User.create({
-            name,email,password:hashPassword,converstation,imgUrl,isOnline
+            name,email,password:hashPassword,converstation,imgUrl,isOnline,group
           })
           if(createusser){
               return NextResponse.json({

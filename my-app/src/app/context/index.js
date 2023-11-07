@@ -13,6 +13,8 @@ export default function GloblaState({ children }) {
   const [getAllCon, setGetAllCon] = useState(null);
   const [getCurrentCon,setGetCurrentCon]=useState(null)
   const [inchatUser,setInChatUser]=useState(null)
+  const [onlineUsers,setOnlineUSers]=useState(null)
+  const [groupModel,setGroupModel]=useState(false)
 
   useEffect(() => {
     if (Cookies.get("token") !== undefined) {
@@ -38,7 +40,11 @@ export default function GloblaState({ children }) {
         getCurrentCon,
         setGetCurrentCon,
         inchatUser,
-        setInChatUser
+        setInChatUser,
+        onlineUsers,
+        setOnlineUSers,
+        groupModel,
+        setGroupModel
       }}
     >
       {children}

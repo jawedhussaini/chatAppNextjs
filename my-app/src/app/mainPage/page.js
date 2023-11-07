@@ -8,9 +8,10 @@ import SideBar from "../component/sideBar";
 import { allUsers } from "../services/user";
 import { GloblaContext } from "../context";
 import { getConverstation } from "../services/converstaion";
+import GroupModel from "../component/groupModel";
 
 const MainPage = () => {
-    const {user,setGetAlluser, setGetAllCon,getCurrentCon,inchatUser,setInChatUser}=useContext(GloblaContext)
+    const {user,setGetAlluser, setGetAllCon,getCurrentCon,inchatUser,setInChatUser,groupModel}=useContext(GloblaContext)
     const [u,setu]=useState([])
        const userId=user !==null ? user.id : null
     async function extractallData(){
@@ -24,8 +25,7 @@ const MainPage = () => {
       
         const bb=res.data.filter(u=>dd.includes(u._id))
         const data=res.data.filter(use=>use._id!==userId)
-        console.log(data)
-        console.log(bb)
+        
         setInChatUser(bb)
         setGetAlluser(data)
        
@@ -46,10 +46,6 @@ const MainPage = () => {
         extractallCon()
        }
     },[user])
-    
-
- console.log(u)
-  
   return (
     <>
       <Navbar />
@@ -62,6 +58,8 @@ const MainPage = () => {
           <FindFriends />
         </div>
       </div>
+      {groupModel && <GroupModel/>}
+      
     </>
   );
 };

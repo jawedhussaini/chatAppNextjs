@@ -10,6 +10,10 @@ const UserSchema=new mongoose.Schema({
     converstation:[{
         type:mongoose.Schema.Types.ObjectId,
         ref:'Converstation'
+    }],
+    group:[{
+         type:mongoose.Schema.Types.ObjectId,
+        ref:'Group'
     }]
 },{timestamps:true})
 

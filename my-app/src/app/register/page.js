@@ -27,6 +27,7 @@ const Register = () => {
       email,
       password,
       converstation: [],
+      group:[],
       isOnline,
       imgUrl
     });

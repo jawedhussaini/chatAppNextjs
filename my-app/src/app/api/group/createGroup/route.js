@@ -1,33 +1,29 @@
 import connectToDB from "@/app/dataBase"
-import Converstation from "@/app/model/converstation"
-import Joi from "joi"
+import Group from "@/app/model/group"
 import { NextResponse } from "next/server"
-
-
 
 
 
 export const dynamic='force-dynamic'
 
-
-
 export async function POST(req){
     try{
         connectToDB()
         const data=await req.json()
-        const createCon=await Converstation.create(data)
-        if(createCon){
+        const createGroup=await Group.create(data)
+        if(createGroup){
             return NextResponse.json({
                 success:true,
-                message:"converstation Created Successfull"
+                message:"group Created successful"
             })
         }
         else{
-            return NextResponse.json({
-            success:false,
-            message:"can not create converstation"
-        })
+               return NextResponse.json({
+                success:false,
+                message:"can not Create group try again leter"
+            })
         }
+
     }
     catch(error){
         console.log(error)

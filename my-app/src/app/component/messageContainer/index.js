@@ -9,21 +9,15 @@ import { io } from 'socket.io-client'
 
 
 const MessageContainer = () => {
-  const { getCurrentCon, user } = useContext(GloblaContext);
-  console.log(user)
+  const { getCurrentCon, user,onlineUsers,setOnlineUSers } = useContext(GloblaContext);
   const [messages, setMessage] = useState("");
   const [allmessage, setAllMessage] = useState([]);
   const [chatImg,setChatImg]=useState(null)
   const userID = user !== null ? user.id : null;
-
-
-
-
-
  const [socket,setSocket]=useState(undefined)
   const [indox,setIndox]=useState(null)
-  const [message,setMesage]=useState('')
-  const [room,setroom]=useState('')
+  
+
 
 
 
@@ -53,8 +47,10 @@ const MessageContainer = () => {
   }
     useEffect(()=>{
      const room= getCurrentCon && getCurrentCon._id ? getCurrentCon._id :null
-const socket=io('http://localhost:3000')
-    
+const socket=io('http://localhost:3000',user)
+socket.on("get-users",(userssss)=>{
+ setOnlineUSers(userssss)
+})    
 socket.on("message",(message)=>{ 
 
 setIndox(message)  
@@ -69,11 +65,17 @@ setSocket(socket)
      
       getconverstation();
       {socket !== undefined ?  socket.emit("joinRoom",getCurrentCon._id) : null}
+
      
    
     }
   }, [user, getCurrentCon]);
 
+  useEffect(()=>{
+    if(user !==null){
+      {socket !==undefined ? socket.emit("new-user-add",userID) : null}
+    }
+  },[user])
 
 
 useEffect(()=>{
